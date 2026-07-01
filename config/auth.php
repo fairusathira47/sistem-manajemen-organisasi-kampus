@@ -42,6 +42,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api_token' => [
+            'driver' => 'token',
+            'provider' => 'simple-provider',
+        ],
     ],
 
     /*
@@ -65,6 +70,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', User::class),
+        ],
+
+        'simple-provider' => [
+            'driver' => 'simple',
         ],
 
         // 'users' => [

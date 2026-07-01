@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\KegiatanRequest;
+
 class KegiatanController extends Controller
 {
     public function index()
@@ -18,27 +20,32 @@ class KegiatanController extends Controller
         return view('kegiatan.create');
     }
 
-    public function store(Request $request)
+    public function store(KegiatanRequest $request)
     {
-        Kegiatan::create($request->all());
-        return redirect('/kegiatan');
+        Kegiatan::create($request->validated());
+        return redirect('/kegiatan')->with('success', 'Data kegiatan berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
-        $data = Kegiatan::find($id);
+        $data = Kegiatan::findOrFail($id);
         return view('kegiatan.edit', compact('data'));
     }
 
-    public function update(Request $request, $id)
+    public function update(KegiatanRequest $request, $id)
     {
-        Kegiatan::find($id)->update($request->all());
-        return redirect('/kegiatan');
+        Kegiatan::findOrFail($id)->update($request->validated());
+        return redirect('/kegiatan')->with('success', 'Data kegiatan berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        Kegiatan::find($id)->delete();
-        return redirect('/kegiatan');
+        $kegiatan = Kegiatan::findOrFail($id);
+        
+        // Memeriksa otorisasi menggunakan Policy
+        \Illuminate\Support\Facades\Gate::authorize('delete', $kegiatan);
+
+        $kegiatan->delete();
+        return redirect('/kegiatan')->with('success', 'Data kegiatan berhasil dihapus.');
     }
 }

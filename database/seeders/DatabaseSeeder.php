@@ -15,11 +15,31 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Seed Admin User
+        User::create([
+            'name' => 'Admin Organisasi',
+            'email' => 'admin@example.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'admin',
+            'api_token' => 'admin-secret-token',
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Seed Operator User
+        User::create([
+            'name' => 'Operator Staf',
+            'email' => 'operator@example.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'operator',
+            'api_token' => 'operator-secret-token',
+        ]);
+
+        // Seed Superadmin User
+        User::create([
+            'name' => 'Superadmin Utama',
+            'email' => 'superadmin@example.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+            'role' => 'superadmin',
+            'api_token' => 'superadmin-secret-token',
         ]);
     }
 }

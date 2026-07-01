@@ -52,22 +52,37 @@ margin-bottom:5px;
 @csrf
 
 <label>Nama Lengkap</label>
-<input type="text" name="nama" class="form-control mb-3" placeholder="Masukkan Nama">
+<input type="text" name="nama" class="form-control mb-1 @error('nama') is-invalid @enderror" placeholder="Masukkan Nama" value="{{ old('nama') }}">
+@error('nama')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>NIM</label>
-<input type="text" name="nim" class="form-control mb-3" placeholder="Masukkan NIM">
+<label class="mt-2">NIM</label>
+<input type="text" name="nim" class="form-control mb-1 @error('nim') is-invalid @enderror" placeholder="Masukkan NIM" value="{{ old('nim') }}">
+@error('nim')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>Jurusan</label>
-<input type="text" name="jurusan" class="form-control mb-3" placeholder="Masukkan Jurusan">
+<label class="mt-2">Jurusan</label>
+<input type="text" name="jurusan" class="form-control mb-1 @error('jurusan') is-invalid @enderror" placeholder="Masukkan Jurusan" value="{{ old('jurusan') }}">
+@error('jurusan')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>Jabatan</label>
-<input type="text" name="jabatan" class="form-control mb-3" placeholder="Masukkan Jabatan">
+<label class="mt-2">Jabatan</label>
+<input type="text" name="jabatan" class="form-control mb-1 @error('jabatan') is-invalid @enderror" placeholder="Masukkan Jabatan" value="{{ old('jabatan') }}">
+@error('jabatan')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>No HP</label>
-<input type="text" name="no_hp" class="form-control mb-4" placeholder="Masukkan Nomor HP">
+<label class="mt-2">No HP</label>
+<input type="text" name="no_hp" class="form-control mb-1 @error('no_hp') is-invalid @enderror" placeholder="Masukkan Nomor HP" value="{{ old('no_hp') }}">
+@error('no_hp')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<button type="submit" class="btn btn-primary">💾 Simpan</button>
-<a href="/anggota" class="btn btn-secondary">⬅ Kembali</a>
+<button type="submit" class="btn btn-primary mt-3">💾 Simpan</button>
+<a href="/anggota" class="btn btn-secondary mt-3">⬅ Kembali</a>
 
 </form>
 

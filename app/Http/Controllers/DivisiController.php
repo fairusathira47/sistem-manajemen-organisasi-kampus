@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Divisi;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\DivisiRequest;
+
 class DivisiController extends Controller
 {
     public function index()
@@ -18,27 +20,32 @@ class DivisiController extends Controller
         return view('divisi.create');
     }
 
-    public function store(Request $request)
+    public function store(DivisiRequest $request)
     {
-        Divisi::create($request->all());
-        return redirect('/divisi');
+        Divisi::create($request->validated());
+        return redirect('/divisi')->with('success', 'Data divisi berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
-        $data = Divisi::find($id);
+        $data = Divisi::findOrFail($id);
         return view('divisi.edit', compact('data'));
     }
 
-    public function update(Request $request, $id)
+    public function update(DivisiRequest $request, $id)
     {
-        Divisi::find($id)->update($request->all());
-        return redirect('/divisi');
+        Divisi::findOrFail($id)->update($request->validated());
+        return redirect('/divisi')->with('success', 'Data divisi berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        Divisi::find($id)->delete();
-        return redirect('/divisi');
+        $divisi = Divisi::findOrFail($id);
+        
+        // Memeriksa otorisasi menggunakan Policy
+        \Illuminate\Support\Facades\Gate::authorize('delete', $divisi);
+
+        $divisi->delete();
+        return redirect('/divisi')->with('success', 'Data divisi berhasil dihapus.');
     }
 }

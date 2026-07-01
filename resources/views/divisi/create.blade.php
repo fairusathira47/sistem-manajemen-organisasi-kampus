@@ -20,17 +20,26 @@ body{background:#f4f6f9;}
 <form action="/divisi" method="POST">
 @csrf
 
-<label>Nama Divisi</label>
-<input type="text" name="nama_divisi" class="form-control mb-3">
+<label class="form-label fw-bold">Nama Divisi</label>
+<input type="text" name="nama_divisi" class="form-control mb-1 @error('nama_divisi') is-invalid @enderror" value="{{ old('nama_divisi') }}">
+@error('nama_divisi')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>Ketua</label>
-<input type="text" name="ketua" class="form-control mb-3">
+<label class="form-label fw-bold mt-2">Ketua</label>
+<input type="text" name="ketua" class="form-control mb-1 @error('ketua') is-invalid @enderror" value="{{ old('ketua') }}">
+@error('ketua')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>Keterangan</label>
-<textarea name="keterangan" class="form-control mb-3"></textarea>
+<label class="form-label fw-bold mt-2">Keterangan</label>
+<textarea name="keterangan" class="form-control mb-1 @error('keterangan') is-invalid @enderror">{{ old('keterangan') }}</textarea>
+@error('keterangan')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<button class="btn btn-success">Simpan</button>
-<a href="/divisi" class="btn btn-secondary">Kembali</a>
+<button class="btn btn-success mt-3">Simpan</button>
+<a href="/divisi" class="btn btn-secondary mt-3">Kembali</a>
 
 </form>
 

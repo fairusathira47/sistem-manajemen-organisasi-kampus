@@ -20,20 +20,32 @@ body{background:#f4f6f9;}
 <form action="/kegiatan" method="POST">
 @csrf
 
-<label>Nama Kegiatan</label>
-<input type="text" name="nama_kegiatan" class="form-control mb-3">
+<label class="form-label fw-bold">Nama Kegiatan</label>
+<input type="text" name="nama_kegiatan" class="form-control mb-1 @error('nama_kegiatan') is-invalid @enderror" value="{{ old('nama_kegiatan') }}">
+@error('nama_kegiatan')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>Tanggal</label>
-<input type="date" name="tanggal" class="form-control mb-3">
+<label class="form-label fw-bold mt-2">Tanggal</label>
+<input type="date" name="tanggal" class="form-control mb-1 @error('tanggal') is-invalid @enderror" value="{{ old('tanggal') }}">
+@error('tanggal')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>Lokasi</label>
-<input type="text" name="lokasi" class="form-control mb-3">
+<label class="form-label fw-bold mt-2">Lokasi</label>
+<input type="text" name="lokasi" class="form-control mb-1 @error('lokasi') is-invalid @enderror" value="{{ old('lokasi') }}">
+@error('lokasi')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<label>Deskripsi</label>
-<textarea name="deskripsi" class="form-control mb-3"></textarea>
+<label class="form-label fw-bold mt-2">Deskripsi</label>
+<textarea name="deskripsi" class="form-control mb-1 @error('deskripsi') is-invalid @enderror">{{ old('deskripsi') }}</textarea>
+@error('deskripsi')
+    <div class="text-danger small mb-3">{{ $message }}</div>
+@enderror
 
-<button class="btn btn-warning">Simpan</button>
-<a href="/kegiatan" class="btn btn-secondary">Kembali</a>
+<button class="btn btn-warning mt-3">Simpan</button>
+<a href="/kegiatan" class="btn btn-secondary mt-3">Kembali</a>
 
 </form>
 

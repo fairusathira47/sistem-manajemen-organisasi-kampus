@@ -50,6 +50,13 @@ border-radius:10px;
 <p>Kelola agenda kegiatan organisasi kampus</p>
 </div>
 
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert" style="border-radius:10px;">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
 <div class="card shadow card-box">
 <div class="card-body">
 
@@ -87,6 +94,7 @@ border-radius:10px;
 Edit
 </a>
 
+@can('delete', $row)
 <form action="/kegiatan/{{ $row->id }}" method="POST" style="display:inline;">
 @csrf
 @method('DELETE')
@@ -97,6 +105,7 @@ Hapus
 </button>
 
 </form>
+@endcan
 
 </td>
 </tr>

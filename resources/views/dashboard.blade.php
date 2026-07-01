@@ -58,11 +58,27 @@ text-align:center;
 </button>
 
 <div class="collapse navbar-collapse" id="menu">
-<ul class="navbar-nav ms-auto">
+<ul class="navbar-nav ms-auto align-items-center">
 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+@auth
 <li class="nav-item"><a class="nav-link" href="/anggota">Anggota</a></li>
 <li class="nav-item"><a class="nav-link" href="/divisi">Divisi</a></li>
 <li class="nav-item"><a class="nav-link" href="/kegiatan">Kegiatan</a></li>
+<li class="nav-item ms-lg-3">
+    <span class="navbar-text text-white me-2">
+        👤 {{ Auth::user()->name }} <span class="badge bg-secondary text-capitalize">{{ Auth::user()->role }}</span>
+    </span>
+</li>
+<li class="nav-item">
+    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+        @csrf
+        <button type="submit" class="btn btn-outline-danger btn-sm border-0">Keluar</button>
+    </form>
+</li>
+@else
+<li class="nav-item ms-lg-3"><a class="btn btn-primary btn-sm px-3" href="/login">Masuk</a></li>
+<li class="nav-item ms-lg-2"><a class="btn btn-outline-light btn-sm px-3" href="/register">Daftar</a></li>
+@endauth
 </ul>
 </div>
 </div>
@@ -78,6 +94,19 @@ text-align:center;
 
 <!-- Content -->
 <div class="container mt-5">
+
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert" style="border-radius:10px;">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@guest
+<div class="alert alert-warning border-0 shadow-sm" role="alert" style="border-radius:10px; background-color: rgba(255, 193, 7, 0.15);">
+    🔑 Anda saat ini masuk sebagai <strong>Tamu (Guest)</strong>. Silakan <a href="/login" class="alert-link text-decoration-none">Masuk</a> atau <a href="/register" class="alert-link text-decoration-none">Daftar</a> terlebih dahulu untuk dapat mengelola data Anggota, Divisi, dan Kegiatan.
+</div>
+@endguest
 
 <div class="row g-4">
 
